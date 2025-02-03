@@ -1,1 +1,3 @@
-# DA2-24-25
+# NLP-for-Vietnamese
+
+chmod +x app.sh
