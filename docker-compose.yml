@@ -2,9 +2,29 @@ version: '3.9'
 services:
   web:
     build: .
+    restart: on-failure
     ports:
       - "5001:5001"
     volumes:
       - .:/app
     environment:
       - FLASK_ENV=development
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0  # Use the official MySQL image
+    container_name: mysql
+    restart: on-failure
+    environment:
+      - MYSQL_DATABASE=nlp
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=nlp
+      - MYSQL_PASSWORD=secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:  # Declare the mysql_data volume
