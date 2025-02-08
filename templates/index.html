@@ -11,13 +11,13 @@
 </head>
 <body>
     <!-- Fixed Header -->
-    <div class="fixed-header py-3 bg-info text-white mb-3">
+    <div class="fixed-header py-3 bg-info text-white">
         <h1 class="text-center">Welcome to Fix Vietnamese Mistakes</h1>
     </div>
 
     <!-- Error Message Section -->
-    <div id="error-message" class="alert alert-danger text-center mt-5" style="display:none;">
-        <strong>Error: </strong><span id="error-text"></span>
+    <div id="error-message" class="alert alert-danger text-center" style="display:none;">
+        <span id="error-text"></span>
     </div>
 
     <!-- Loading Spinner Section -->
@@ -45,7 +45,10 @@
             </div>
         </div>
     </div>
-
+    <!-- Footer section -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2025 DA2 - 51900447 - 51800595 | All Rights Reserved</p>
+    </footer>
     <script>
         $(document).ready(function(){
             $('#fix-button').click(function(){
@@ -66,19 +69,24 @@
                         // Hide the loading spinner once the response is received
                         $('#loading-spinner').hide();
 
-                        // Check if response contains a corrected text
-                        if (response.corrected_text) {
+                        if (response.data && response.data.corrected_text) {
                             // Update the output box with the fixed value from the response
-                            $('#output-box').val(response.corrected_text);
+                            $('#output-box').val(response.data.corrected_text);
                         } else {
+                            // Show error message if corrected_text is missing in the response
                             showError('Something went wrong, no corrected text returned.');
                         }
                     },
-                    error: function(){
+                    error: function(xhr, status, error) {
                         // Hide the loading spinner if the request fails
                         $('#loading-spinner').hide();
+                        let errorMessage = 'Failed to connect to the server.';
+
+                        if (xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
                         // Show error if AJAX request fails
-                        showError('Failed to connect to the server.');
+                        showError(errorMessage);
                     }
                 });
             });
