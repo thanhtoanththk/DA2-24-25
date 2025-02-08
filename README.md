@@ -22,6 +22,7 @@ Trước khi sử dụng file `app.sh`, bạn cần cấp quyền thực thi cho
 
 ```bash
 chmod +x app.sh
+```
 
 ### 3.2 Start Flask app
 
@@ -29,6 +30,7 @@ chmod +x app.sh
 
 ```bash
 ./app.sh start
+```
 
 ### 3.3 Stop Flask app
 
@@ -36,3 +38,4 @@ chmod +x app.sh
 
 ```bash
 ./app.sh stop
+```
